@@ -32,7 +32,8 @@ def build_model(df):
 
     
 
-    rf = RandomForestRegressor(n_estimators=parameter_n_estimators,
+    rf = RandomForestRegressor(
+        n_estimators=parameter_n_estimators,
         random_state=parameter_random_state,
         max_features=parameter_max_features,
         criterion=parameter_criterion,
@@ -41,7 +42,7 @@ def build_model(df):
         bootstrap=parameter_bootstrap,
         oob_score=parameter_oob_score,
         n_jobs=parameter_n_jobs)
-
+# max_depthint, default=None min_weight_fraction_leaffloat, default=0.0 max_leaf_nodesint, default=None min_impurity_decreasefloat, default=0.0 verboseint, default=0 warm_startbool, default=False class_weight{“balanced”, “balanced_subsample”}, dict or list of dicts, default=None ccp_alphanon-negative float, default=0.0 max_samplesint or float, default=None
     rf.fit(X_train, Y_train)
 
     st.subheader('2. Model Performace')
