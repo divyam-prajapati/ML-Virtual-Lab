@@ -14,13 +14,13 @@ st.markdown(
      
 
     ##### How to use  
-    **Step 1: Select a algorithm from the sidebar. 👈**
+    **Step 1: Select a algorithm from the sidebar. **
     
     **Step 2: Upload your own dataset or use one given by default.** 
     
     **Step 3: Try adjusting the hyperparameters in the sidebar.**
 
-    **Step 4: Fill out the feedback form. 🙂**
+    **Step 4: Fill out the feedback form. **
 """
 )
 

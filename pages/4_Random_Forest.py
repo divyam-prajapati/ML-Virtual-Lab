@@ -3,7 +3,7 @@ import streamlit as st
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.datasets import load_diabetes, load_boston
+from sklearn.datasets import load_diabetes
 
 
 st.set_page_config(page_title='Random Forest',layout='wide')
@@ -97,7 +97,7 @@ with st.sidebar.subheader('2.1. Learning Parameters'):
 
 with st.sidebar.subheader('2.2. General Parameters'):
     parameter_random_state = st.sidebar.slider('Seed number (random_state)', 0, 1000, 42, 1)
-    parameter_criterion = st.sidebar.select_slider('Performance measure (criterion)', options=['mse', 'mae'])
+    parameter_criterion = st.sidebar.select_slider('Performance measure (criterion)', options=['absolute_error', 'squared_error'])
     parameter_bootstrap = st.sidebar.select_slider('Bootstrap samples when building trees (bootstrap)', options=[True, False])
     parameter_oob_score = st.sidebar.select_slider('Whether to use out-of-bag samples to estimate the R^2 on unseen data (oob_score)', options=[False, True])
     parameter_n_jobs = st.sidebar.select_slider('Number of jobs to run in parallel (n_jobs)', options=[1, -1])
@@ -113,7 +113,7 @@ if uploaded_file is not None:
 else:
     st.info('Awaiting for CSV file to be uploaded.')
     if st.button('Press to use Example Dataset'):
-        boston = load_boston()
+        boston = load_diabetes()
         X = pd.DataFrame(boston.data, columns=boston.feature_names)
         Y = pd.Series(boston.target, name='response')
         df = pd.concat( [X,Y], axis=1 )

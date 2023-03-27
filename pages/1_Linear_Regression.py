@@ -31,8 +31,7 @@ def build_model(df):
     lr = LinearRegression(
         fit_intercept=fit_intercept, 
         copy_X=copy_X, 
-        n_jobs=parameter_n_jobs, 
-        normalize=normalize,
+        n_jobs=parameter_n_jobs,
     )
     
     lr.fit(X_train, Y_train)
@@ -85,7 +84,6 @@ with st.sidebar.subheader('3. General Parameters'):
     fit_intercept = st.sidebar.select_slider('fit_intercept', options=[True, False])
     copy_X = st.sidebar.select_slider('copy_X', options=[False, True])
     parameter_n_jobs = st.sidebar.select_slider('Number of jobs to run in parallel (n_jobs)', options=[1, -1])
-    normalize = st.sidebar.select_slider('Normalize', options=[False, True])
 
 
 st.subheader('1. Dataset')
