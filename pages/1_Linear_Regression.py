@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.datasets import load_diabetes
-
+from sklearn.decomposition import PCA
 
 st.set_page_config(page_title='Linear Regression',layout='wide')
 
@@ -58,6 +58,18 @@ def build_model(df):
 
     st.subheader('3. Model Parameters')
     st.write(lr.get_params())
+    # graph
+    pca = PCA(2)
+    X_projected = pca.fit_transform(X)
+    x1 = X_projected[:, 0]
+    x2 = X_projected[:, 1]
+    fig = plt.figure()
+    plt.scatter(x1, x2, c=Y, alpha=0.8, cmap="viridis")
+    plt.xlabel("principal component 1")
+    plt.ylabel("principal component 2")
+
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    st.pyplot()
 
     
 st.write("""
