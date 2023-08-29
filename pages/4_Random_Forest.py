@@ -3,7 +3,8 @@ import streamlit as st
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
-from sklearn.datasets import load_diabetes
+from sklearn.datasets import load_diabetes, load_boston
+import matplotlib.pyplot as plt
 
 
 st.set_page_config(page_title='Random Forest',layout='wide')
@@ -41,8 +42,11 @@ def build_model(df):
         min_samples_leaf=parameter_min_samples_leaf,
         bootstrap=parameter_bootstrap,
         oob_score=parameter_oob_score,
-        n_jobs=parameter_n_jobs)
+        n_jobs=parameter_n_jobs
+    )
+    
 # max_depthint, default=None min_weight_fraction_leaffloat, default=0.0 max_leaf_nodesint, default=None min_impurity_decreasefloat, default=0.0 verboseint, default=0 warm_startbool, default=False class_weight{“balanced”, “balanced_subsample”}, dict or list of dicts, default=None ccp_alphanon-negative float, default=0.0 max_samplesint or float, default=None
+    
     rf.fit(X_train, Y_train)
 
     st.subheader('2. Model Performace')
@@ -67,6 +71,19 @@ def build_model(df):
 
     st.subheader('3. Model Parameters')
     st.write(rf.get_params())
+
+    st.subheader('5. Graph')
+    fig, ax = plt.subplots()
+    ax.scatter(df['age'], df['response'])
+    ax.set_xlabel('age')
+    ax.set_ylabel('Response')
+    st.pyplot(fig)
+
+    fig, ax = plt.subplots()
+    ax.scatter(df['bmi'], df['response'], c='red')
+    ax.set_xlabel('bmi')
+    ax.set_ylabel('Response')
+    st.pyplot(fig)
 
     
 st.write("""
@@ -97,7 +114,7 @@ with st.sidebar.subheader('2.1. Learning Parameters'):
 
 with st.sidebar.subheader('2.2. General Parameters'):
     parameter_random_state = st.sidebar.slider('Seed number (random_state)', 0, 1000, 42, 1)
-    parameter_criterion = st.sidebar.select_slider('Performance measure (criterion)', options=['absolute_error', 'squared_error'])
+    parameter_criterion = st.sidebar.select_slider('Performance measure (criterion)', options=['mse', 'mae'])
     parameter_bootstrap = st.sidebar.select_slider('Bootstrap samples when building trees (bootstrap)', options=[True, False])
     parameter_oob_score = st.sidebar.select_slider('Whether to use out-of-bag samples to estimate the R^2 on unseen data (oob_score)', options=[False, True])
     parameter_n_jobs = st.sidebar.select_slider('Number of jobs to run in parallel (n_jobs)', options=[1, -1])
